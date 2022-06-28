@@ -29,7 +29,8 @@ public class RegisterScreen extends JFrame {
     JButton btnContinue;
 
     List<JTextField> list = new ArrayList<>();
-    RegisterScreen(){
+
+    RegisterScreen() {
 
         JLabel welcomeText = new JLabel("Welcome to your fitness companion");
         welcomeText.setPreferredSize(new Dimension(400, 20));
@@ -66,7 +67,7 @@ public class RegisterScreen extends JFrame {
         password.setPreferredSize(new Dimension(190, 30));
         password.setBounds(140, 160, password.getPreferredSize().width, password.getPreferredSize().height);
 
-        
+
         JLabel heightLabel = new JLabel("Height (cm)");
         heightLabel.setFont(new Font("Optima", Font.BOLD, 13));
         heightLabel.setForeground(Color.black);
@@ -94,7 +95,7 @@ public class RegisterScreen extends JFrame {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)){
+                if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
                     e.consume();
                 }
             }
@@ -110,7 +111,7 @@ public class RegisterScreen extends JFrame {
 
         // Generating age:
         int count = 15;
-        while (count <= 80){
+        while (count <= 80) {
             ageSelector.addItem(count++);
         }
 
@@ -181,13 +182,36 @@ public class RegisterScreen extends JFrame {
         btnContinue.setBackground(Color.red);
         btnContinue.setForeground(Color.white);
         btnContinue.setEnabled(true);
+        btnContinue.setFocusable(false);
         btnContinue.setBorder(BorderFactory.createEmptyBorder());
         btnContinue.setFocusPainted(true);
         btnContinue.setFont(new Font("Optima", Font.BOLD, 15));
         btnContinue.setPreferredSize(new Dimension(120, 25));
-        btnContinue.setBounds(138, 440, btnContinue.getPreferredSize().width, btnContinue.getPreferredSize().height);
+        btnContinue.setBounds(138, 420, btnContinue.getPreferredSize().width, btnContinue.getPreferredSize().height);
 
-       
+        JLabel alreadyHaveAnAccount = new JLabel("Already have an account?");
+        alreadyHaveAnAccount.setForeground(Color.black);
+        alreadyHaveAnAccount.setFont(new Font("Arial", Font.ITALIC, 12));
+        alreadyHaveAnAccount.setPreferredSize(new Dimension(200, 20));
+        alreadyHaveAnAccount.setBounds(130, 460, alreadyHaveAnAccount.getPreferredSize().width, alreadyHaveAnAccount.getPreferredSize().height);
+
+        JButton btnLogin = new JButton("Login");
+        btnLogin.setForeground(Color.white);
+        btnLogin.setBackground(Color.gray);
+        btnLogin.setFocusable(false);
+        btnLogin.setBorder(null);
+        btnLogin.setFont(new Font("Optima", Font.BOLD, 13));
+        btnLogin.setPreferredSize(new Dimension(80, 22));
+        btnLogin.setBounds(160, 480, btnLogin.getPreferredSize().width, btnLogin.getPreferredSize().height);
+
+
+        btnLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new LoginScreen();
+                RegisterScreen.this.dispose();
+            }
+        });
 
 //        for (JTextField textField : list){
 //            textField.getDocument().addDocumentListener(listener);
@@ -215,31 +239,34 @@ public class RegisterScreen extends JFrame {
         panel.add(displayWeight);
         panel.add(weightSlider);
         panel.add(btnContinue);
-        
+        panel.add(alreadyHaveAnAccount);
+        panel.add(btnLogin);
+
+
         btnContinue.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	if (fullName.getText().equals(null)  || fullName.getText().equals("")) {
-            		JOptionPane.showMessageDialog(panel, "Full Name is required!");
-            	} else if (password.getText().equals(null)  || password.getText().equals("")) {
-            		JOptionPane.showMessageDialog(panel, "Password is required!");
-            	} else if (height.getText().equals(null) || height.getText().equals("")) {
-            		JOptionPane.showMessageDialog(panel, "Height is required!");
-            	} else if (height.getText().length() > 3 ) {
-            		JOptionPane.showMessageDialog(panel, "Height cannot be greater than 3 digits no");
-            	} else {
-            		 new MainMenu();
-                     RegisterScreen.this.dispose();
-            	}
-            	
-               
+                if (fullName.getText() == null || fullName.getText().equals("")) {
+                    JOptionPane.showMessageDialog(panel, "Full Name is required!");
+                } else if (password.getPassword() == null || password.getText().equals("")) {
+                    JOptionPane.showMessageDialog(panel, "Password is required!");
+                } else if (height.getText() == null || height.getText().equals("")) {
+                    JOptionPane.showMessageDialog(panel, "Height is required!");
+                } else if (height.getText().length() > 3) {
+                    JOptionPane.showMessageDialog(panel, "Height cannot be greater than 3 digits no");
+                } else {
+                    new MainMenu();
+                    RegisterScreen.this.dispose();
+                }
+
+
             }
         });
 
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Registration Form");
-        this.setSize(400, 550);
+        this.setSize(400, 570);
         this.add(panel);
         this.setResizable(false);
 
@@ -254,7 +281,7 @@ public class RegisterScreen extends JFrame {
             this.limit = limit;
         }
 
-        public void insertString( int offset, String  str, AttributeSet attr ) throws BadLocationException {
+        public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
             if (str == null) return;
 
             if ((getLength() + str.length()) <= limit) {

@@ -117,9 +117,9 @@ public class LoginScreen extends JFrame {
         btnContinue.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	if (fullName.getText().equals(null)  || fullName.getText().equals("")) {
+            	if (fullName.getText() == null || fullName.getText().equals("")) {
             		JOptionPane.showMessageDialog(panel, "Full Name is required!");
-            	} else if (password.getText().equals(null)  || password.getText().equals("")) {
+            	} else if (password.getPassword() == null || password.getText().equals("")) {
             		JOptionPane.showMessageDialog(panel, "Password is required!");
             	} else {
             		   new MainMenu();
