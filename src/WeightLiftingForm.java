@@ -26,7 +26,7 @@ public class WeightLiftingForm extends JFrame implements ChangeListener  {
         exercise.setBounds(20,50,400,25);
         String[] cardioExercises = {"Arnold Press", "Ab Wheel", "Around The World","Back Extension","Bench Dip","Bench Press", "Bicep Curl","Cable Crunch"};
         comboBoxExercise=new JComboBox<>(cardioExercises);
-        comboBoxExercise.setBounds(260,50,100,25);
+        comboBoxExercise.setBounds(260,50,100,25);   
 
         set = new JLabel("Set");
         set.setBounds(20,90,100,25);
@@ -36,7 +36,7 @@ public class WeightLiftingForm extends JFrame implements ChangeListener  {
 
         slider = new JSlider(0,500,100);
         weight = new JLabel();
-        weight.setText("Weight(Kg): "+slider.getValue());
+        weight.setText("Weight(Kg)");
         weight.setBounds(20,130,100,25);
         slider.setBounds(20,160,350,25);
         slider.setBackground(Color.gray);
@@ -87,14 +87,16 @@ public class WeightLiftingForm extends JFrame implements ChangeListener  {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	if (reps.getText().equals(null)  || reps.getText().equals("")) {
-            		JOptionPane.showMessageDialog(panel, "reps is required!");
+            	if (rep.getText().equals(null)  || rep.getText().equals("") || !isNumeric(rep.getText())) {
+            		JOptionPane.showMessageDialog(panel, "reps is required && must be a numeric value ");
             	} 
             	else {
-            		   new MainMenu();
-                       WeightLiftingForm.this.dispose();
+//            		System.out.println("exercise: " + comboBoxExercise.getSelectedItem().toString() + " set: " + comboBoxSet.getSelectedItem().toString() + " weight: " + slider.getValue() + " reps: " + rep.getText());
+            		dbConnection.insertValues("INSERT INTO WEIGHTLIFTING VALUES (0, '" + comboBoxExercise.getSelectedItem().toString() + "', " + Integer.parseInt(comboBoxSet.getSelectedItem().toString()) + ", " + Integer.parseInt(rep.getText()) + ", " + slider.getValue() +")");
+//            		System.out.println(result);
+            		new MainMenu();
+                    WeightLiftingForm.this.dispose();
             	}
-             
             }
         });
 
@@ -105,10 +107,25 @@ public class WeightLiftingForm extends JFrame implements ChangeListener  {
         frame.setIconImage(image.getImage());
         frame.add(panel);
         frame.setVisible(true);
+        
+        slider.addChangeListener(new ChangeListener(){
+            public void stateChanged(ChangeEvent e) {
+            	System.out.println(slider.getValue());
+            	weight.setText("Weight(Kg): " + slider.getValue());
+            }
+        });
+        
+        
+    }
+    
+    //returns true if str is a number(int/float)
+    private static boolean isNumeric(String str){
+        return str != null && str.matches("[0-9.]+");
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        weight.setText("Weight(Kg): "+slider.getValue());
+        
     }
+    
 }

@@ -18,8 +18,11 @@ public class NewExercise {
             new CardioForm();
         } else if (types[1].equals(getType)) {
             new WeightLiftingForm();
+        } else if (types[2].equals(getType)) {
+        	JOptionPane.showMessageDialog(null, "Form for :" + types[2]);
         } else {
-            JOptionPane.showMessageDialog(null, "Form for :" + types[2]);
+            // NO
+        	JOptionPane.getRootFrame().dispose();
         }
     }
 }
