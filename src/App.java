@@ -8,6 +8,6 @@ public class App {
     	
     	new dbConnection();
         new LoginScreen();
-
+//        new ViewWeekly();
     }
 }
