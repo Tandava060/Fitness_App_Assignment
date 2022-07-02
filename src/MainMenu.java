@@ -76,7 +76,8 @@ public class MainMenu implements ActionListener {
         }
 
         if (e.getSource().equals(weekly)) {
-            JOptionPane.showMessageDialog(null, "Weekly Summary");
+//            JOptionPane.showMessageDialog(null, "Weekly Summary");
+            new ViewWeekly();
             frame.dispose();
         }
     }

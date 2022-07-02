@@ -6,8 +6,8 @@ public class App {
 
     public static void main(String[] args) {
     	
-    	new dbConnection();
-        new LoginScreen();
-
+//    	new dbConnection();
+//        new LoginScreen();
+        new ViewWeekly();
     }
 }
