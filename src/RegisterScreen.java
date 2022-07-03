@@ -17,7 +17,7 @@ import java.util.List;
 public class RegisterScreen extends JFrame {
 
     JTextField fullName;
-    JPasswordField password;
+    JTextField password;
     JTextField height;
     JComboBox<Integer> ageSelector;
     JRadioButton radioButtonMale;
@@ -248,15 +248,26 @@ public class RegisterScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (fullName.getText() == null || fullName.getText().equals("")) {
                     JOptionPane.showMessageDialog(panel, "Full Name is required!");
-                } else if (password.getPassword() == null || password.getText().equals("")) {
+                } else if (password.getText() == null || password.getText().equals("")) {
                     JOptionPane.showMessageDialog(panel, "Password is required!");
                 } else if (height.getText() == null || height.getText().equals("")) {
                     JOptionPane.showMessageDialog(panel, "Height is required!");
                 } else if (height.getText().length() > 3) {
                     JOptionPane.showMessageDialog(panel, "Height cannot be greater than 3 digits no");
                 } else {
-                    new MainMenu();
-                    RegisterScreen.this.dispose();
+                	String radioval;
+                	if (radioButtonMale.isSelected()) {
+                		radioval = radioButtonMale.getText();
+                	} else {
+                		radioval = radioButtonFemale.getText();
+                	}
+                	
+                	Authentication auth = new Authentication();
+                	if (auth.register(fullName.getText(), password.getText(), Integer.parseInt(height.getText()), Integer.parseInt(ageSelector.getSelectedItem().toString()),radioval , weightSlider.getValue(), panel)) {
+                		new MainMenu();
+                        RegisterScreen.this.dispose();
+                	}
+                    
                 }
 
 

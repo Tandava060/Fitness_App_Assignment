@@ -1,2 +1,3 @@
-server
-src/dbConnection.java
+/server
+/src/dbConnection.java
+/.classpath
