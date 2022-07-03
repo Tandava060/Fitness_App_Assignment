@@ -123,7 +123,9 @@ public class LoginScreen extends JFrame {
             		JOptionPane.showMessageDialog(panel, "Password is required!");
             	} else {
             		Authentication auth = new Authentication();
-                	if (auth.login(fullName.getText(), password.getText(), panel)) {
+            		User user = auth.login(fullName.getText(), password.getText(), panel);
+                	if (user != null) {
+                		App.createSession(user);
                 		new MainMenu();
                         LoginScreen.this.dispose();
                 	} 

@@ -84,11 +84,14 @@ public class MainMenu implements ActionListener {
 
         if (e.getSource().equals(weekly)) {
 //            JOptionPane.showMessageDialog(null, "Weekly Summary");
-            new ViewWeekly();
+//            new ViewWeekly();
+        	System.out.println(App.currentUser.getId());
+        	System.out.println(App.currentUser.getName());
             frame.dispose();
         }
         
         if (e.getSource().equals(logout)) {
+        	App.terminateSession();
         	new LoginScreen();
             frame.dispose();
         }
