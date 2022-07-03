@@ -249,7 +249,8 @@ public class ViewWeekly extends JFrame {
 //        weightLiftingData.add(new WeightLiftingData("8/07/2022", "Triceps Pushdowns", 25, 3, 12));
 //        weightLiftingData.add(new WeightLiftingData("9/07/2022", "Biceps Curls", 25, 3, 10));
         
-        WeightLiftingData[] result = dbConnection.getWeightLiftingValues("SELECT * FROM WEIGHTLIFTING");
+//        WeightLiftingData[] result = dbConnection.getWeightLiftingValues("SELECT * FROM WEIGHTLIFTING");
+        WeightLiftingData[] result = dbConnection.getWeightLiftingValues();
     	for(int i=0;i<result.length;i++) {
     		weightLiftingData.add(result[i]);
     	}

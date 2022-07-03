@@ -84,8 +84,13 @@ public class CardioForm extends JFrame {
                 } else if (caloriesTextField.getText() == null || caloriesTextField.getText().equals("") || !isNumeric(caloriesTextField.getText()) ) {
                     JOptionPane.showMessageDialog(panel, "calories is required && must be a numeric value");
                 } else {
-                	dbConnection.insertValues("INSERT INTO CARDIO VALUES (0, '" + comboBox.getSelectedItem().toString() + "', " + Integer.parseInt(mileTextField.getText()) + ", " + Integer.parseInt(timeTextField.getText()) + ", " + Integer.parseInt(caloriesTextField.getText()) +")");
-            		new MainMenu();
+//                	dbConnection.insertValues("INSERT INTO CARDIO VALUES (0, '" + comboBox.getSelectedItem().toString() + "', " + Integer.parseInt(mileTextField.getText()) + ", " + Integer.parseInt(timeTextField.getText()) + ", " + Integer.parseInt(caloriesTextField.getText()) +")");
+                	if(dbConnection.createCardioExercise(comboBox.getSelectedItem().toString(), Integer.parseInt(mileTextField.getText()), Integer.parseInt(timeTextField.getText()) , Integer.parseInt(caloriesTextField.getText()))) {
+            			JOptionPane.showMessageDialog(panel, "Exercise added ✔");
+            		} else {
+            			JOptionPane.showMessageDialog(panel, "Error, please try again later");
+            		}
+                	new MainMenu();
                     CardioForm.this.dispose();
                 }
 
