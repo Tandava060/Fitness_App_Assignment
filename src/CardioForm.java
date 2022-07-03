@@ -77,13 +77,15 @@ public class CardioForm extends JFrame {
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (mileTextField.getText() == null || mileTextField.getText().equals("")) {
-                    JOptionPane.showMessageDialog(panel, "Distance is required!");
-                } else if (timeTextField.getText() == null || timeTextField.getText().equals("")) {
-                    JOptionPane.showMessageDialog(panel, "time is required!");
-                } else if (caloriesTextField.getText() == null || caloriesTextField.getText().equals("")) {
-                    JOptionPane.showMessageDialog(panel, "calories is required!");
+                if (mileTextField.getText() == null || mileTextField.getText().equals("") || !isNumeric(mileTextField.getText()) ) {
+                    JOptionPane.showMessageDialog(panel, "Distance is required && must be a numeric value ");
+                } else if (timeTextField.getText() == null || timeTextField.getText().equals("") || !isNumeric(timeTextField.getText()) ) {
+                    JOptionPane.showMessageDialog(panel, "time is required && must be a numeric value ");
+                } else if (caloriesTextField.getText() == null || caloriesTextField.getText().equals("") || !isNumeric(caloriesTextField.getText()) ) {
+                    JOptionPane.showMessageDialog(panel, "calories is required && must be a numeric value");
                 } else {
+                	dbConnection.insertValues("INSERT INTO CARDIO VALUES (0, '" + comboBox.getSelectedItem().toString() + "', " + Integer.parseInt(mileTextField.getText()) + ", " + Integer.parseInt(timeTextField.getText()) + ", " + Integer.parseInt(caloriesTextField.getText()) +")");
+            		new MainMenu();
                     CardioForm.this.dispose();
                 }
 
@@ -96,6 +98,11 @@ public class CardioForm extends JFrame {
         frame.setIconImage(image.getImage());
         frame.add(panel);
         frame.setVisible(true);
+    }
+    
+  //returns true if str is a number(int/float)
+    private static boolean isNumeric(String str){
+        return str != null && str.matches("[0-9.]+");
     }
 
 }

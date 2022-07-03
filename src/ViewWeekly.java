@@ -1,13 +1,27 @@
-import com.github.lgooddatepicker.components.DatePicker;
-import com.github.lgooddatepicker.components.DatePickerSettings;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import java.awt.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
+
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 
 public class ViewWeekly extends JFrame {
 
@@ -152,13 +166,18 @@ public class ViewWeekly extends JFrame {
         // Input Data from CardioData Class:
         cardioData = new ArrayList<>();
         cardioData.add(new CardioData("2/07/2022", "Jogging", "5.5", "47", "450"));
-        cardioData.add(new CardioData("3/07/2022", "Walking", "10", "50", "240"));
-        cardioData.add(new CardioData("4/07/2022", "Speed Walking", "7", "18", "390"));
-        cardioData.add(new CardioData("5/07/2022", "Swimming", "2", "30", "500"));
-        cardioData.add(new CardioData("6/07/2022", "Sprinting", "1.5", "20", "390"));
-        cardioData.add(new CardioData("7/07/2022", "Water aerobics", "2.4", "30", "390"));
-        cardioData.add(new CardioData("8/07/2022", "Cycling", "10", "70", "400"));
-        cardioData.add(new CardioData("9/07/2022", "Burpees", "-", "20", "450"));
+//        cardioData.add(new CardioData("3/07/2022", "Walking", "10", "50", "240"));
+//        cardioData.add(new CardioData("4/07/2022", "Speed Walking", "7", "18", "390"));
+//        cardioData.add(new CardioData("5/07/2022", "Swimming", "2", "30", "500"));
+//        cardioData.add(new CardioData("6/07/2022", "Sprinting", "1.5", "20", "390"));
+//        cardioData.add(new CardioData("7/07/2022", "Water aerobics", "2.4", "30", "390"));
+//        cardioData.add(new CardioData("8/07/2022", "Cycling", "10", "70", "400"));
+//        cardioData.add(new CardioData("9/07/2022", "Burpees", "-", "20", "450"));
+        
+        CardioData[] result = dbConnection.getCardioValues("SELECT * FROM CARDIO");
+    	for(int i=0;i<result.length;i++) {
+    		cardioData.add(result[i]);
+    	}
     }
     private JScrollPane createCardioTable() {
 
@@ -222,13 +241,18 @@ public class ViewWeekly extends JFrame {
         // Input Data from CardioData Class:
         weightLiftingData = new ArrayList<>();
         weightLiftingData.add(new WeightLiftingData("2/07/2022", "Dumbell Press", 30, 3, 10));
-        weightLiftingData.add(new WeightLiftingData("3/07/2022", "Lat PullDowns", 40, 2, 15));
-        weightLiftingData.add(new WeightLiftingData("4/07/2022", "Squat", 80, 3, 12));
-        weightLiftingData.add(new WeightLiftingData("5/07/2022", "Leg Press", 200, 2, 10));
-        weightLiftingData.add(new WeightLiftingData("6/07/2022", "Lateral Raises", 5, 3, 30));
-        weightLiftingData.add(new WeightLiftingData("7/07/2022", "Face Pulls", 15, 3, 15));
-        weightLiftingData.add(new WeightLiftingData("8/07/2022", "Triceps Pushdowns", 25, 3, 12));
-        weightLiftingData.add(new WeightLiftingData("9/07/2022", "Biceps Curls", 25, 3, 10));
+//        weightLiftingData.add(new WeightLiftingData("3/07/2022", "Lat PullDowns", 40, 2, 15));
+//        weightLiftingData.add(new WeightLiftingData("4/07/2022", "Squat", 80, 3, 12));
+//        weightLiftingData.add(new WeightLiftingData("5/07/2022", "Leg Press", 200, 2, 10));
+//        weightLiftingData.add(new WeightLiftingData("6/07/2022", "Lateral Raises", 5, 3, 30));
+//        weightLiftingData.add(new WeightLiftingData("7/07/2022", "Face Pulls", 15, 3, 15));
+//        weightLiftingData.add(new WeightLiftingData("8/07/2022", "Triceps Pushdowns", 25, 3, 12));
+//        weightLiftingData.add(new WeightLiftingData("9/07/2022", "Biceps Curls", 25, 3, 10));
+        
+        WeightLiftingData[] result = dbConnection.getWeightLiftingValues("SELECT * FROM WEIGHTLIFTING");
+    	for(int i=0;i<result.length;i++) {
+    		weightLiftingData.add(result[i]);
+    	}
     }
 
     private JScrollPane createWeightLiftingTable() {
