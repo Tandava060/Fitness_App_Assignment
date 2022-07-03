@@ -20,7 +20,7 @@ public class Authentication {
 			s = this.con.createStatement();
 		} catch(Exception err) {
 			
-			System.out.println("ERROR: " + err);
+			System.out.println("ERRORasdasd: " + err);
 		}
 		
 	}
@@ -32,7 +32,7 @@ public class Authentication {
 			
 			if (res.next() != false) {
 				System.out.println(res.getInt(1));
-				return new User(res.getString("ID"), res.getString("NAME"), res.getInt("HEIGHT"), res.getInt("AGE"), res.getString("GENDER"), res.getInt("ID"));
+				return new User(res.getInt("ID"), res.getString("NAME"));
 //				return true;
 			} else {
 				res = s.executeQuery("SELECT * FROM USER WHERE NAME ='" + name  + "'");
@@ -64,6 +64,8 @@ public class Authentication {
 		        if (s.getGeneratedKeys().next()) {
 		        	System.out.println(s.getGeneratedKeys().getInt(1));
 		        }
+		        
+		        
 				return true;
 			} else {
 				return false;
