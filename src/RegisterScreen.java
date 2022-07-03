@@ -263,7 +263,7 @@ public class RegisterScreen extends JFrame {
                 	}
                 	
                 	Authentication auth = new Authentication();
-                	if (auth.register(fullName.getText(), password.getText(), Integer.parseInt(height.getText()), Integer.parseInt(ageSelector.getSelectedItem().toString()),radioval , weightSlider.getValue())) {
+                	if (auth.register(fullName.getText(), password.getText(), Integer.parseInt(height.getText()), Integer.parseInt(ageSelector.getSelectedItem().toString()),radioval , weightSlider.getValue(), panel)) {
                 		new MainMenu();
                         RegisterScreen.this.dispose();
                 	}

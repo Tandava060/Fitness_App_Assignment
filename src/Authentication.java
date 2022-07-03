@@ -1,4 +1,8 @@
 import java.sql.Connection;
+
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 import java.sql.*;
 
 public class Authentication {
@@ -20,19 +24,26 @@ public class Authentication {
 		
 	}
 	
-	public boolean login(String name, String password) {
+	public boolean login(String name, String password, JPanel panel) {
 		try {
 			res = s.executeQuery("SELECT * FROM USER WHERE NAME ='" + name + "' AND PASSWORD = '" + password + "'");
 			
 			
-			if (res != null) {
-				while(res.next()) {
-					System.out.println(res.getString(1));
-				}
+			if (res.next() != false) {
+				System.out.println(res.getInt(1));
 					return true;
+			} else {
+				res = s.executeQuery("SELECT * FROM USER WHERE NAME ='" + name  + "'");
+				if (res.next() != false) {
+					JOptionPane.showMessageDialog(panel, "Wrong password entered!");
+				} else {
+					JOptionPane.showMessageDialog(panel, "Invalid credidentials!");
 				}
+				
+				return false;
+			}
 			
-			return false;
+			
 			}
 		 catch(Exception err) {
 			System.out.println("ERROR: " + err);
@@ -40,11 +51,20 @@ public class Authentication {
 		return false;
 	}
 
-	public boolean register(String name, String password, int height, int age, String gender, int weight ) {
+	public boolean register(String name, String password, int height, int age, String gender, int weight, JPanel panel ) {
 		try {
-			int count = s.executeUpdate("INSERT INTO USER(NAME, PASSWORD, HEIGHT, AGE, GENDER, WEIGHT) VALUES ('" + name + "', '" + password + "', '" + height + "', '" + age + "', '" + gender + "', '" + weight + "')");
-			System.out.println(count);
+			res = s.executeQuery("SELECT * FROM USER WHERE NAME ='" + name + "'");
+			if (res.next() != false) {
+				
+				JOptionPane.showMessageDialog(panel, "Account with name already exists!");
+				return false;
+			}
+			int count = s.executeUpdate("INSERT INTO USER(NAME, PASSWORD, HEIGHT, AGE, GENDER, WEIGHT) VALUES ('" + name + "', '" + password + "', '" + height + "', '" + age + "', '" + gender + "', '" + weight + "')", s.RETURN_GENERATED_KEYS);
 			if ( count > 0) {
+		            if (s.getGeneratedKeys().next()) {
+		            	System.out.println(s.getGeneratedKeys().getInt(1));
+		            
+		        }
 				return true;
 			} else {
 				return false;
