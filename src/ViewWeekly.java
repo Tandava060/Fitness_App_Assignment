@@ -268,8 +268,6 @@ public class ViewWeekly extends JFrame {
 
     private void addWeightLiftingData(LocalDate dateFrom, LocalDate dateTo ){
     	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    	System.out.println(dateFrom.format(myFormatObj));
-    	System.out.println(dateTo.format(myFormatObj));
         // Input Data from CardioData Class:
         weightLiftingData = new ArrayList<>();
 //        weightLiftingData.add(new WeightLiftingData(Date, "Dumbell Press", 30, 3, 10));
