@@ -1,9 +1,11 @@
-public class CardioData {
+import java.util.Date;
 
-    String date, name, distance, time, calories;
+public class CardioData {
+	Date date;
+    String name, distance, time, calories;
 
     // Constructor:
-    public CardioData(String date, String name, String distance, String time, String calories) {
+    public CardioData(Date date, String name, String distance, String time, String calories) {
         this.date = date;
         this.name = name;
         this.distance = distance;
@@ -12,7 +14,7 @@ public class CardioData {
     }
 
     // Getters:
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 

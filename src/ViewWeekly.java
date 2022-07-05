@@ -3,8 +3,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -19,7 +24,7 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
+import java.time.LocalDate; 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
@@ -42,6 +47,8 @@ public class ViewWeekly extends JFrame {
     ArrayList<WeightLiftingData> weightLiftingData;
     JTable weightLiftingTable;
 
+    
+    
     ViewWeekly() {
 
         splitPane = new JSplitPane();
@@ -77,6 +84,38 @@ public class ViewWeekly extends JFrame {
         searchBtn.setFocusable(false);
         searchBtn.setPreferredSize(new Dimension(100, 25));
         searchBtn.setFont(new Font("Optima", Font.PLAIN, 14));
+        
+        searchBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				bottomPanel.removeAll();
+				
+				
+				endDatePicker.getDate();
+			
+				 bottomPanel.setLayout(new BoxLayout(bottomPanel , BoxLayout.Y_AXIS));
+			    JPanel cardioTablePanel = new JPanel();
+		        addCardioData(); // ** FOR DEMO PURPOSES ** Can be removed later on when fetching data
+		        cardioTablePanel.add(createCardioTable());
+		        cardioTablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Cardio History",  TitledBorder.CENTER, TitledBorder.TOP));
+
+		        JPanel weightLiftingTablePanel = new JPanel();
+		        addWeightLiftingData(startDatePicker.getDate(),endDatePicker.getDate());
+		        weightLiftingTablePanel.add(createWeightLiftingTable());
+		        weightLiftingTablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "WeightLifting History",  TitledBorder.CENTER, TitledBorder.TOP));
+
+
+		        bottomPanel.add(cardioTablePanel);
+		        bottomPanel.add(weightLiftingTablePanel);
+		        
+		        splitPane.setBottomComponent(bottomPanel);
+		       
+			}
+		});
 
         panel2.add(dateSelectorLabel);
         panel2.add(startDatePicker);
@@ -88,15 +127,15 @@ public class ViewWeekly extends JFrame {
         JPanel panel3 = new JPanel();
 
         // To work only when date submit button has been clicked.
-        progressBar = new JProgressBar();
-        progressBar.setValue(0);
-        progressBar.setBackground(Color.black);
-        progressBar.setForeground(Color.red);
-        progressBar.setFont(new Font("Optima", Font.BOLD, 18));
-        progressBar.setStringPainted(true);
-        progressBar.setPreferredSize(new Dimension(400, 50));
+//        progressBar = new JProgressBar();
+//        progressBar.setValue(0);
+//        progressBar.setBackground(Color.black);
+//        progressBar.setForeground(Color.red);
+//        progressBar.setFont(new Font("Optima", Font.BOLD, 18));
+//        progressBar.setStringPainted(true);
+        panel3.setPreferredSize(new Dimension(400, 50));
 
-        panel3.add(progressBar);
+//        panel3.add(progressBar);
         //==================================================================================================
 
         topPanel.add(panel1);
@@ -105,29 +144,19 @@ public class ViewWeekly extends JFrame {
 
         // ============================= Bottom Half of Panel =================================
         bottomPanel = new JPanel();
+        splitPane.setBottomComponent(bottomPanel);
         // Layout
-        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
-
+       
+//        bottomPanel.
         // Bottom Panel tables
-        JPanel cardioTablePanel = new JPanel();
-        addCardioData(); // ** FOR DEMO PURPOSES ** Can be removed later on when fetching data
-        cardioTablePanel.add(createCardioTable());
-        cardioTablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Cardio History",  TitledBorder.CENTER, TitledBorder.TOP));
-
-        JPanel weightLiftingTablePanel = new JPanel();
-        addWeightLiftingData();
-        weightLiftingTablePanel.add(createWeightLiftingTable());
-        weightLiftingTablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "WeightLifting History",  TitledBorder.CENTER, TitledBorder.TOP));
-
-
-        bottomPanel.add(cardioTablePanel);
-        bottomPanel.add(weightLiftingTablePanel);
+    
+      
 
         splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
         splitPane.setDividerLocation(150);
         splitPane.setBackground(Color.gray);
         splitPane.setTopComponent(topPanel);
-        splitPane.setBottomComponent(bottomPanel);
+      
 
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -139,7 +168,7 @@ public class ViewWeekly extends JFrame {
 
         this.setVisible(true);
 
-        fill();
+//        fill();
 
     }
 
@@ -165,7 +194,7 @@ public class ViewWeekly extends JFrame {
     private void addCardioData(){
         // Input Data from CardioData Class:
         cardioData = new ArrayList<>();
-        cardioData.add(new CardioData("2/07/2022", "Jogging", "5.5", "47", "450"));
+//        cardioData.add(new CardioData("2/07/2022", "Jogging", "5.5", "47", "450"));
 //        cardioData.add(new CardioData("3/07/2022", "Walking", "10", "50", "240"));
 //        cardioData.add(new CardioData("4/07/2022", "Speed Walking", "7", "18", "390"));
 //        cardioData.add(new CardioData("5/07/2022", "Swimming", "2", "30", "500"));
@@ -220,7 +249,7 @@ public class ViewWeekly extends JFrame {
     }
     private void fetchCardioData(DefaultTableModel tableModel, ArrayList<CardioData> data){
         for (CardioData d : data) {
-            String _date = d.getDate();
+            Date _date = d.getDate();
             String _name = d.getName();
             String _distance = d.getDistance();
             String _time = d.getTime();
@@ -237,10 +266,13 @@ public class ViewWeekly extends JFrame {
 
     // =============================== WeightLifting Methods ========================================
 
-    private void addWeightLiftingData(){
+    private void addWeightLiftingData(LocalDate dateFrom, LocalDate dateTo ){
+    	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    	System.out.println(dateFrom.format(myFormatObj));
+    	System.out.println(dateTo.format(myFormatObj));
         // Input Data from CardioData Class:
         weightLiftingData = new ArrayList<>();
-        weightLiftingData.add(new WeightLiftingData("2/07/2022", "Dumbell Press", 30, 3, 10));
+//        weightLiftingData.add(new WeightLiftingData(Date, "Dumbell Press", 30, 3, 10));
 //        weightLiftingData.add(new WeightLiftingData("3/07/2022", "Lat PullDowns", 40, 2, 15));
 //        weightLiftingData.add(new WeightLiftingData("4/07/2022", "Squat", 80, 3, 12));
 //        weightLiftingData.add(new WeightLiftingData("5/07/2022", "Leg Press", 200, 2, 10));
@@ -297,7 +329,7 @@ public class ViewWeekly extends JFrame {
     }
     private void fetchWeightLiftingData(DefaultTableModel tableModel, ArrayList<WeightLiftingData> data){
         for (WeightLiftingData d : data) {
-            String _date = d.getDate();
+            Date _date = d.getDate();
             String _name = d.getName();
             float _weight = d.getWeight();
             int _sets = d.getSets();
