@@ -16,6 +16,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
@@ -90,30 +91,31 @@ public class ViewWeekly extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				if(startDatePicker.getDate() != null && endDatePicker.getDate() != null) {	
 				
+					bottomPanel.removeAll();
+					
+					
+					endDatePicker.getDate();
 				
-				bottomPanel.removeAll();
-				
-				
-				endDatePicker.getDate();
-			
-				 bottomPanel.setLayout(new BoxLayout(bottomPanel , BoxLayout.Y_AXIS));
-			    JPanel cardioTablePanel = new JPanel();
-		        addCardioData(); // ** FOR DEMO PURPOSES ** Can be removed later on when fetching data
-		        cardioTablePanel.add(createCardioTable());
-		        cardioTablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Cardio History",  TitledBorder.CENTER, TitledBorder.TOP));
+					 bottomPanel.setLayout(new BoxLayout(bottomPanel , BoxLayout.Y_AXIS));
+				    JPanel cardioTablePanel = new JPanel();
+			        addCardioData(startDatePicker.getDate(),endDatePicker.getDate()); // ** FOR DEMO PURPOSES ** Can be removed later on when fetching data
+			        cardioTablePanel.add(createCardioTable());
+			        cardioTablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Cardio History",  TitledBorder.CENTER, TitledBorder.TOP));
+			        
+			        JPanel weightLiftingTablePanel = new JPanel();
+			        addWeightLiftingData(startDatePicker.getDate(),endDatePicker.getDate());
+			        weightLiftingTablePanel.add(createWeightLiftingTable());
+			        weightLiftingTablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "WeightLifting History",  TitledBorder.CENTER, TitledBorder.TOP));
 
-		        JPanel weightLiftingTablePanel = new JPanel();
-		        addWeightLiftingData(startDatePicker.getDate(),endDatePicker.getDate());
-		        weightLiftingTablePanel.add(createWeightLiftingTable());
-		        weightLiftingTablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "WeightLifting History",  TitledBorder.CENTER, TitledBorder.TOP));
-
-
-		        bottomPanel.add(cardioTablePanel);
-		        bottomPanel.add(weightLiftingTablePanel);
-		        
-		        splitPane.setBottomComponent(bottomPanel);
-		       
+			        bottomPanel.add(cardioTablePanel);
+			        bottomPanel.add(weightLiftingTablePanel);
+			        
+			        splitPane.setBottomComponent(bottomPanel);
+				} else {
+					JOptionPane.showMessageDialog(topPanel, "DateFrom AND DateTo is required");
+				}
 			}
 		});
 
@@ -191,7 +193,8 @@ public class ViewWeekly extends JFrame {
     }
 
     // =============================== Cardio Methods ===============================================
-    private void addCardioData(){
+    private void addCardioData(LocalDate dateFrom, LocalDate dateTo){
+    	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // Input Data from CardioData Class:
         cardioData = new ArrayList<>();
 //        cardioData.add(new CardioData("2/07/2022", "Jogging", "5.5", "47", "450"));
@@ -203,7 +206,7 @@ public class ViewWeekly extends JFrame {
 //        cardioData.add(new CardioData("8/07/2022", "Cycling", "10", "70", "400"));
 //        cardioData.add(new CardioData("9/07/2022", "Burpees", "-", "20", "450"));
         
-        CardioData[] result = dbConnection.getCardioValues("SELECT * FROM CARDIO");
+        CardioData[] result = dbConnection.getCardioValues(dateFrom.format(myFormatObj), dateTo.format(myFormatObj));
     	for(int i=0;i<result.length;i++) {
     		cardioData.add(result[i]);
     	}
@@ -269,8 +272,6 @@ public class ViewWeekly extends JFrame {
     private void addWeightLiftingData(LocalDate dateFrom, LocalDate dateTo ){
     	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // Input Data from CardioData Class:
-    	System.out.println(dateFrom.format(myFormatObj));
-    	System.out.println(dateTo.format(myFormatObj));
         weightLiftingData = new ArrayList<>();
 //        weightLiftingData.add(new WeightLiftingData(Date, "Dumbell Press", 30, 3, 10));
 //        weightLiftingData.add(new WeightLiftingData("3/07/2022", "Lat PullDowns", 40, 2, 15));
@@ -282,7 +283,7 @@ public class ViewWeekly extends JFrame {
 //        weightLiftingData.add(new WeightLiftingData("9/07/2022", "Biceps Curls", 25, 3, 10));
         
 //        WeightLiftingData[] result = dbConnection.getWeightLiftingValues("SELECT * FROM WEIGHTLIFTING");
-        WeightLiftingData[] result = dbConnection.getWeightLiftingValues();
+        WeightLiftingData[] result = dbConnection.getWeightLiftingValues(dateFrom.format(myFormatObj), dateTo.format(myFormatObj));
     	for(int i=0;i<result.length;i++) {
     		weightLiftingData.add(result[i]);
     	}
