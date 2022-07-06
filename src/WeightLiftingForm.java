@@ -115,7 +115,6 @@ public class WeightLiftingForm extends JFrame implements ChangeListener  {
         
         slider.addChangeListener(new ChangeListener(){
             public void stateChanged(ChangeEvent e) {
-            	System.out.println(slider.getValue());
             	weight.setText("Weight(Kg): " + slider.getValue());
             }
         });
