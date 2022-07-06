@@ -9,6 +9,7 @@ public class MainMenu implements ActionListener {
     JButton addBtn;
     JButton daily;
     JButton weekly;
+    JButton logout;
     JPanel panel;
 
     MainMenu(){
@@ -26,25 +27,30 @@ public class MainMenu implements ActionListener {
         addBtn = new JButton("Add Exercise");
         daily = new JButton("View Daily");
         weekly = new JButton("View Weekly");
+        logout = new JButton("Logout");
 
         iconLabel.setPreferredSize(new Dimension(100, 50));
         title.setPreferredSize(new Dimension(400, 20));
         addBtn.setPreferredSize(new Dimension(200, 40));
         daily.setPreferredSize(new Dimension(200, 40));
         weekly.setPreferredSize(new Dimension(200, 40));
+        logout.setPreferredSize(new Dimension(200, 40));
 
         addBtn.setFocusable(false);
         daily.setFocusable(false);
         weekly.setFocusable(false);
+        logout.setFocusable(false);
 
         addBtn.addActionListener(this);
         daily.addActionListener(this);
         weekly.addActionListener(this);
+       logout.addActionListener(this);
 
         iconLabel.setBounds(143, 40, iconLabel.getPreferredSize().width, iconLabel.getPreferredSize().height);
         addBtn.setBounds(95, 100, addBtn.getPreferredSize().width, addBtn.getPreferredSize().height);
         daily.setBounds(95, 150, daily.getPreferredSize().width, daily.getPreferredSize().height);
         weekly.setBounds(95, 200, weekly.getPreferredSize().width, weekly.getPreferredSize().height);
+        logout.setBounds(95, 250, logout.getPreferredSize().width, logout.getPreferredSize().height);
         title.setBounds(110, 20, title.getPreferredSize().width, title.getPreferredSize().height);
 
         panel.add(title);
@@ -52,9 +58,10 @@ public class MainMenu implements ActionListener {
         panel.add(this.addBtn);
         panel.add(this.daily);
         panel.add(this.weekly);
+        panel.add(this.logout);
 
         frame = new JFrame("Main Menu");
-        frame.setSize(400, 350);
+        frame.setSize(400, 400);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -78,7 +85,16 @@ public class MainMenu implements ActionListener {
         if (e.getSource().equals(weekly)) {
 //            JOptionPane.showMessageDialog(null, "Weekly Summary");
             new ViewWeekly();
-//            frame.dispose();
+//        	System.out.println(App.currentUser.getId());
+//        	System.out.println(App.currentUser.getName());
+            frame.dispose();
         }
+        
+        if (e.getSource().equals(logout)) {
+        	App.terminateSession();
+        	new LoginScreen();
+            frame.dispose();
+        }
+        
     }
 }

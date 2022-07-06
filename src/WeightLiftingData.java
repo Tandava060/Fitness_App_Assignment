@@ -1,11 +1,20 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date; 
+
 public class WeightLiftingData {
 
-    String date, name;
+    Date date;
+	String name;
     float weight;
     int sets, reps;
+    
 
     // Constructor:
-    public WeightLiftingData(String date, String name, float weight, int sets, int reps) {
+    public WeightLiftingData(Date date, String name, float weight, int sets, int reps) {
+    	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.date = date;
         this.name = name;
         this.weight = weight;
@@ -14,7 +23,7 @@ public class WeightLiftingData {
     }
 
     // Getters:
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 

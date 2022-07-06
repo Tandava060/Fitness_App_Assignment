@@ -92,8 +92,13 @@ public class WeightLiftingForm extends JFrame implements ChangeListener  {
             	} 
             	else {
 //            		System.out.println("exercise: " + comboBoxExercise.getSelectedItem().toString() + " set: " + comboBoxSet.getSelectedItem().toString() + " weight: " + slider.getValue() + " reps: " + rep.getText());
-            		dbConnection.insertValues("INSERT INTO WEIGHTLIFTING VALUES (0, '" + comboBoxExercise.getSelectedItem().toString() + "', " + Integer.parseInt(comboBoxSet.getSelectedItem().toString()) + ", " + Integer.parseInt(rep.getText()) + ", " + slider.getValue() +")");
+//            		dbConnection.insertValues("INSERT INTO WEIGHTLIFTING VALUES (0, '" + comboBoxExercise.getSelectedItem().toString() + "', " + Integer.parseInt(comboBoxSet.getSelectedItem().toString()) + ", " + Integer.parseInt(rep.getText()) + ", " + slider.getValue() +")");
 //            		System.out.println(result);
+            		if(dbConnection.createWeightLiftingExercise(comboBoxExercise.getSelectedItem().toString(), Integer.parseInt(comboBoxSet.getSelectedItem().toString()), Integer.parseInt(rep.getText()) , slider.getValue())) {
+            			JOptionPane.showMessageDialog(panel, "Exercise added ✔");
+            		} else {
+            			JOptionPane.showMessageDialog(panel, "Error, please try again later");
+            		}
             		new MainMenu();
                     WeightLiftingForm.this.dispose();
             	}

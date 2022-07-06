@@ -17,7 +17,7 @@ import java.util.List;
 
 public class LoginScreen extends JFrame {
 	JTextField fullName;
-    JPasswordField password;
+    JTextField password;
 
     JButton btnContinue;
 
@@ -54,7 +54,7 @@ public class LoginScreen extends JFrame {
         passwordLabel.setPreferredSize(new Dimension(80, 30));
         passwordLabel.setBounds(60, 160, passwordLabel.getPreferredSize().width, passwordLabel.getPreferredSize().height);
 
-        password = new JPasswordField();
+        password = new JTextField();
         password.setEditable(true);
         password.setFont(new Font("Optima", Font.PLAIN, 13));
         password.setPreferredSize(new Dimension(190, 30));
@@ -119,11 +119,15 @@ public class LoginScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	if (fullName.getText() == null || fullName.getText().equals("")) {
             		JOptionPane.showMessageDialog(panel, "Full Name is required!");
-            	} else if (password.getPassword() == null || password.getText().equals("")) {
+            	} else if (password.getText() == null || password.getText().equals("")) {
             		JOptionPane.showMessageDialog(panel, "Password is required!");
             	} else {
-            		   new MainMenu();
-                       LoginScreen.this.dispose();
+            		User user = dbConnection.login(fullName.getText(), password.getText(), panel);
+                	if (user != null) {
+                		App.createSession(user);
+                		new MainMenu();
+                        LoginScreen.this.dispose();
+                	} 
             	}
              
             }
