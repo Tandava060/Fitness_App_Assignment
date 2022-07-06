@@ -74,19 +74,16 @@ public class MainMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addBtn)) {
             new NewExercise();
-//            frame.dispose();
+            frame.dispose();
         }
 
         if (e.getSource().equals(daily)) {
-            JOptionPane.showMessageDialog(null, "Daily Summary");
-//            frame.dispose();
+            new ViewDailyExercises();
+            frame.dispose();
         }
 
         if (e.getSource().equals(weekly)) {
-//            JOptionPane.showMessageDialog(null, "Weekly Summary");
             new ViewWeekly();
-//        	System.out.println(App.currentUser.getId());
-//        	System.out.println(App.currentUser.getName());
             frame.dispose();
         }
         

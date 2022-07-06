@@ -13,6 +13,16 @@ public class CardioData {
         this.calories = calories;
     }
 
+    // Constructor without date:
+
+
+    public CardioData(String name, String distance, String time, String calories) {
+        this.name = name;
+        this.distance = distance;
+        this.time = time;
+        this.calories = calories;
+    }
+
     // Getters:
     public Date getDate() {
         return date;

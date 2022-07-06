@@ -6,9 +6,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
@@ -25,18 +25,14 @@ import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import java.time.LocalDate; 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 
 public class ViewWeekly extends JFrame {
-
     JSplitPane splitPane;
 
     JPanel topPanel;
     JPanel bottomPanel;
-
-    JProgressBar progressBar;
 
 
     String[] cardioTableHeaders = {"Date", "Name", "Distance (km)", "Time (min)", "Calories Burnt (kcals)"};
@@ -54,7 +50,7 @@ public class ViewWeekly extends JFrame {
 
         splitPane = new JSplitPane();
 
-        // Top Panel of SplitPane Consists of 3 JPanels: 1: Title, 2: Date Selector, 3: Progress Bar
+        // Top Panel of SplitPane Consists of 3 JPanels: 1: Title, 2: Date Selector, 3: Back Button
         topPanel = new JPanel();
         topPanel.setLayout(new GridLayout(3, 1, 0, 0));
 
@@ -94,11 +90,11 @@ public class ViewWeekly extends JFrame {
 				if(startDatePicker.getDate() != null && endDatePicker.getDate() != null) {	
 				
 					bottomPanel.removeAll();
-					
-					
+
 					endDatePicker.getDate();
-				
-					 bottomPanel.setLayout(new BoxLayout(bottomPanel , BoxLayout.Y_AXIS));
+
+                    // Bottom Panel tables
+                    bottomPanel.setLayout(new BoxLayout(bottomPanel , BoxLayout.Y_AXIS));
 				    JPanel cardioTablePanel = new JPanel();
 			        addCardioData(startDatePicker.getDate(),endDatePicker.getDate()); // ** FOR DEMO PURPOSES ** Can be removed later on when fetching data
 			        cardioTablePanel.add(createCardioTable());
@@ -127,17 +123,23 @@ public class ViewWeekly extends JFrame {
 
         //=========================================== Panel 3 ==============================================
         JPanel panel3 = new JPanel();
+        JButton backBtn = new JButton("Back");
 
-        // To work only when date submit button has been clicked.
-//        progressBar = new JProgressBar();
-//        progressBar.setValue(0);
-//        progressBar.setBackground(Color.black);
-//        progressBar.setForeground(Color.red);
-//        progressBar.setFont(new Font("Optima", Font.BOLD, 18));
-//        progressBar.setStringPainted(true);
+        backBtn.setFocusable(false);
+        backBtn.setPreferredSize(new Dimension(100, 25));
+
+
         panel3.setPreferredSize(new Dimension(400, 50));
+        panel3.add(backBtn);
 
-//        panel3.add(progressBar);
+        backBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MainMenu();
+                ViewWeekly.this.dispose();
+            }
+        });
+
         //==================================================================================================
 
         topPanel.add(panel1);
@@ -146,19 +148,13 @@ public class ViewWeekly extends JFrame {
 
         // ============================= Bottom Half of Panel =================================
         bottomPanel = new JPanel();
-        splitPane.setBottomComponent(bottomPanel);
-        // Layout
-       
-//        bottomPanel.
-        // Bottom Panel tables
-    
-      
 
+
+        splitPane.setTopComponent(topPanel);
+        splitPane.setBottomComponent(bottomPanel);
         splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
         splitPane.setDividerLocation(150);
         splitPane.setBackground(Color.gray);
-        splitPane.setTopComponent(topPanel);
-      
 
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,26 +166,6 @@ public class ViewWeekly extends JFrame {
 
         this.setVisible(true);
 
-//        fill();
-
-    }
-
-    // Use to fill up progress bar...Edit to work with progress of fetching data from database.
-    public void fill() {
-        int counter = 0;
-
-        while (counter < 101) {
-            progressBar.setValue(counter);
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            counter++;
-        }
-
-        progressBar.setString("Your Exercise History Below!");
-
     }
 
     // =============================== Cardio Methods ===============================================
@@ -199,17 +175,16 @@ public class ViewWeekly extends JFrame {
         cardioData = new ArrayList<>();
 //        cardioData.add(new CardioData("2/07/2022", "Jogging", "5.5", "47", "450"));
 //        cardioData.add(new CardioData("3/07/2022", "Walking", "10", "50", "240"));
-//        cardioData.add(new CardioData("4/07/2022", "Speed Walking", "7", "18", "390"));
-//        cardioData.add(new CardioData("5/07/2022", "Swimming", "2", "30", "500"));
-//        cardioData.add(new CardioData("6/07/2022", "Sprinting", "1.5", "20", "390"));
-//        cardioData.add(new CardioData("7/07/2022", "Water aerobics", "2.4", "30", "390"));
-//        cardioData.add(new CardioData("8/07/2022", "Cycling", "10", "70", "400"));
-//        cardioData.add(new CardioData("9/07/2022", "Burpees", "-", "20", "450"));
-        
+
         CardioData[] result = dbConnection.getCardioValues(dateFrom.format(myFormatObj), dateTo.format(myFormatObj));
-    	for(int i=0;i<result.length;i++) {
-    		cardioData.add(result[i]);
-    	}
+
+        if (result != null){
+            Collections.addAll(cardioData, result);
+        }
+        else {
+            JOptionPane.showMessageDialog(bottomPanel, "No cardio data found.");
+        }
+
     }
     private JScrollPane createCardioTable() {
 
@@ -277,16 +252,15 @@ public class ViewWeekly extends JFrame {
 //        weightLiftingData.add(new WeightLiftingData("3/07/2022", "Lat PullDowns", 40, 2, 15));
 //        weightLiftingData.add(new WeightLiftingData("4/07/2022", "Squat", 80, 3, 12));
 //        weightLiftingData.add(new WeightLiftingData("5/07/2022", "Leg Press", 200, 2, 10));
-//        weightLiftingData.add(new WeightLiftingData("6/07/2022", "Lateral Raises", 5, 3, 30));
-//        weightLiftingData.add(new WeightLiftingData("7/07/2022", "Face Pulls", 15, 3, 15));
-//        weightLiftingData.add(new WeightLiftingData("8/07/2022", "Triceps Pushdowns", 25, 3, 12));
-//        weightLiftingData.add(new WeightLiftingData("9/07/2022", "Biceps Curls", 25, 3, 10));
-        
+
 //        WeightLiftingData[] result = dbConnection.getWeightLiftingValues("SELECT * FROM WEIGHTLIFTING");
         WeightLiftingData[] result = dbConnection.getWeightLiftingValues(dateFrom.format(myFormatObj), dateTo.format(myFormatObj));
-    	for(int i=0;i<result.length;i++) {
-    		weightLiftingData.add(result[i]);
-    	}
+
+        if (result != null){
+            Collections.addAll(weightLiftingData, result);
+        }else {
+            JOptionPane.showMessageDialog(bottomPanel, "No Weightlifting data found.");
+        }
     }
 
     private JScrollPane createWeightLiftingTable() {
@@ -341,7 +315,6 @@ public class ViewWeekly extends JFrame {
             tableModel.addRow(cardioData);
         }
     }
-
     // ==============================================================================================
 
 }

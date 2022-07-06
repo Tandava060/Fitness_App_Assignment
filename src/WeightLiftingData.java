@@ -22,6 +22,14 @@ public class WeightLiftingData {
         this.reps = reps;
     }
 
+    // Constructor without date:
+    public WeightLiftingData(String name, float weight, int sets, int reps) {
+        this.name = name;
+        this.weight = weight;
+        this.sets = sets;
+        this.reps = reps;
+    }
+
     // Getters:
     public Date getDate() {
         return date;

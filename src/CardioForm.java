@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 public class CardioForm extends JFrame {
 
-    JFrame frame;
     ImageIcon image;
     JPanel panel;
     JLabel title, exercise, mile, time, calories;
@@ -97,12 +96,12 @@ public class CardioForm extends JFrame {
             }
         });
 
-        frame = new JFrame("Cardio Workouts");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setIconImage(image.getImage());
-        frame.add(panel);
-        frame.setVisible(true);
+        this.setTitle("Cardio Workouts");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(400, 300);
+        this.setIconImage(image.getImage());
+        this.add(panel);
+        this.setVisible(true);
     }
     
   //returns true if str is a number(int/float)
