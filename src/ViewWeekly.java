@@ -173,9 +173,6 @@ public class ViewWeekly extends JFrame {
     	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // Input Data from CardioData Class:
         cardioData = new ArrayList<>();
-//        cardioData.add(new CardioData("2/07/2022", "Jogging", "5.5", "47", "450"));
-//        cardioData.add(new CardioData("3/07/2022", "Walking", "10", "50", "240"));
-
         CardioData[] result = dbConnection.getCardioValues(dateFrom.format(myFormatObj), dateTo.format(myFormatObj));
 
         if (result != null){
@@ -248,12 +245,6 @@ public class ViewWeekly extends JFrame {
     	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // Input Data from CardioData Class:
         weightLiftingData = new ArrayList<>();
-//        weightLiftingData.add(new WeightLiftingData(Date, "Dumbell Press", 30, 3, 10));
-//        weightLiftingData.add(new WeightLiftingData("3/07/2022", "Lat PullDowns", 40, 2, 15));
-//        weightLiftingData.add(new WeightLiftingData("4/07/2022", "Squat", 80, 3, 12));
-//        weightLiftingData.add(new WeightLiftingData("5/07/2022", "Leg Press", 200, 2, 10));
-
-//        WeightLiftingData[] result = dbConnection.getWeightLiftingValues("SELECT * FROM WEIGHTLIFTING");
         WeightLiftingData[] result = dbConnection.getWeightLiftingValues(dateFrom.format(myFormatObj), dateTo.format(myFormatObj));
 
         if (result != null){

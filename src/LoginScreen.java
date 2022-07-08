@@ -95,12 +95,6 @@ public class LoginScreen extends JFrame {
         btnContinue.setPreferredSize(new Dimension(120, 25));
         btnContinue.setBounds(138, 230, btnContinue.getPreferredSize().width, btnContinue.getPreferredSize().height);
 
-      
-//        for (JTextField textField : list){
-//            textField.getDocument().addDocumentListener(listener);
-//        }
-
-
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBackground(Color.gray);
@@ -143,39 +137,6 @@ public class LoginScreen extends JFrame {
         this.setVisible(true);
 }
     
-//    DocumentListener listener = new DocumentListener() {
-//        @Override
-//        public void insertUpdate(DocumentEvent e) {
-//            changedUpdate(e);
-//        }
-//
-//        @Override
-//        public void removeUpdate(DocumentEvent e) {
-//            changedUpdate(e);
-//        }
-//
-//        @Override
-//        public void changedUpdate(DocumentEvent e) {
-//            boolean isEnabled = true;
-//            for (JTextField textField : list){
-//                if (textField.getText().isEmpty()){
-//                    isEnabled = false;
-//                }
-//            }
-//
-//            btnContinue.setEnabled(isEnabled);
-//
-//            if (btnContinue.isEnabled()){
-//                btnContinue.setBackground(Color.GREEN);
-//                btnContinue.setForeground(Color.BLACK);
-//            }
-//            else {
-//                btnContinue.setBackground(Color.RED);
-//                btnContinue.setForeground(Color.WHITE);
-//            }
-//        }
-//    };
-//    
     public static class JTextFieldLimit extends PlainDocument {
         private final int limit;
 

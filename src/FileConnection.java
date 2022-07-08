@@ -13,10 +13,6 @@ import java.util.Scanner;
 public class FileConnection {
 	
 	public FileConnection() {
-		//set date and if date != Date.now()
-		//clear file !
-		
-		
 		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println(myFormatObj.format(now));
@@ -39,8 +35,6 @@ public class FileConnection {
 		    } catch (IOException ex) {
 		        ex.printStackTrace();
 		    }
-		
-
 	}
 	
 	public static boolean addWeight(String name, float weight, int sets, int reps) {
