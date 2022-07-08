@@ -1,17 +1,9 @@
-import com.github.lgooddatepicker.components.DatePicker;
-import com.sun.tools.javac.Main;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-
 public class ViewDailyExercises extends JFrame {
 
     JSplitPane splitPane;
@@ -88,8 +80,6 @@ public class ViewDailyExercises extends JFrame {
     }
 
     private void addCardioData(){
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        // Input Data from CardioData Class:
         cardioData = new ArrayList<>();
         cardioData = FileConnection.readCardioValues();
 
@@ -150,8 +140,6 @@ public class ViewDailyExercises extends JFrame {
 
 
     private void addWeightLiftingData(){
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        weightLiftingData = new ArrayList<WeightLiftingData>();
         weightLiftingData = FileConnection.readWeightValues();
     }
     private JScrollPane createWeightLiftingTable() {

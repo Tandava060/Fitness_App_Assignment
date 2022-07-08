@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -8,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Formatter;
-import java.util.Scanner;
 
 public class FileConnection {
 	
@@ -18,7 +16,6 @@ public class FileConnection {
 		System.out.println(myFormatObj.format(now));
 		
 		 String line;
-		 int i = 0;
 		 try {
 		        BufferedReader bufferreader = new BufferedReader(new FileReader("daily.txt"));
 		        line = bufferreader.readLine();
@@ -29,6 +26,7 @@ public class FileConnection {
 			    	outfile.format("%s", myFormatObj.format(now));
 			    	outfile.close();
 		        }
+		        bufferreader.close();
 		        
 		    } catch (FileNotFoundException ex) {
 		        ex.printStackTrace();
@@ -124,6 +122,7 @@ public class FileConnection {
 	        	    }
 	        	}
 	        }
+	        bufferreader.close();
 	        return arr;
 
 	    } catch (FileNotFoundException ex) {
@@ -169,6 +168,7 @@ public class FileConnection {
 	        	    }
 	        	}
 	        }
+	        bufferreader.close();
 	        return arr;
 
 	    } catch (FileNotFoundException ex) {

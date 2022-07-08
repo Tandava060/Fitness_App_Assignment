@@ -125,9 +125,10 @@ public class WeightLiftingForm extends JFrame implements ChangeListener  {
         return str != null && str.matches("[0-9.]+");
     }
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        
-    }
+	@Override
+	public void stateChanged(ChangeEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }
