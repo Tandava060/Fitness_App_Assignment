@@ -95,6 +95,7 @@ public class WeightLiftingForm extends JFrame implements ChangeListener  {
 //            		dbConnection.insertValues("INSERT INTO WEIGHTLIFTING VALUES (0, '" + comboBoxExercise.getSelectedItem().toString() + "', " + Integer.parseInt(comboBoxSet.getSelectedItem().toString()) + ", " + Integer.parseInt(rep.getText()) + ", " + slider.getValue() +")");
 //            		System.out.println(result);
             		if(dbConnection.createWeightLiftingExercise(comboBoxExercise.getSelectedItem().toString(), Integer.parseInt(comboBoxSet.getSelectedItem().toString()), Integer.parseInt(rep.getText()) , slider.getValue())) {
+            			FileConnection.addWeight(comboBoxExercise.getSelectedItem().toString(), slider.getValue(), Integer.parseInt(comboBoxSet.getSelectedItem().toString()), Integer.parseInt(rep.getText()));
             			JOptionPane.showMessageDialog(panel, "Exercise added ✔");
             		} else {
             			JOptionPane.showMessageDialog(panel, "Error, please try again later");
