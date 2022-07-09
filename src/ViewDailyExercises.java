@@ -1,17 +1,9 @@
-import com.github.lgooddatepicker.components.DatePicker;
-import com.sun.tools.javac.Main;
-
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-
 public class ViewDailyExercises extends JFrame {
 
     JSplitPane splitPane;
@@ -88,20 +80,9 @@ public class ViewDailyExercises extends JFrame {
     }
 
     private void addCardioData(){
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        // Input Data from CardioData Class:
         cardioData = new ArrayList<>();
-        cardioData.add(new CardioData("Jogging", "5.5", "47", "450"));
-        cardioData.add(new CardioData("Walking", "10", "50", "240"));
+        cardioData = FileConnection.readCardioValues();
 
-//        CardioData[] result = dbConnection.getCardioValues(dateFrom.format(myFormatObj), dateTo.format(myFormatObj));
-//
-//        if (result != null){
-//            Collections.addAll(cardioData, result);
-//        }
-//        else {
-//            JOptionPane.showMessageDialog(bottomPanel, "No cardio data found.");
-//        }
 
     }
     private JScrollPane createCardioTable(){
@@ -159,27 +140,11 @@ public class ViewDailyExercises extends JFrame {
 
 
     private void addWeightLiftingData(){
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        // Input Data from CardioData Class:
-        weightLiftingData = new ArrayList<>();
-//        weightLiftingData.add(new WeightLiftingData(Date, "Dumbell Press", 30, 3, 10));
-        weightLiftingData.add(new WeightLiftingData( "Lat PullDowns", 40, 2, 15));
-        weightLiftingData.add(new WeightLiftingData( "Squat", 80, 3, 12));
-        weightLiftingData.add(new WeightLiftingData("Leg Press", 200, 2, 10));
-
-//        WeightLiftingData[] result = dbConnection.getWeightLiftingValues("SELECT * FROM WEIGHTLIFTING");
-//        WeightLiftingData[] result = dbConnection.getWeightLiftingValues(dateFrom.format(myFormatObj), dateTo.format(myFormatObj));
-//
-//        if (result != null){
-//            Collections.addAll(weightLiftingData, result);
-//        }else {
-//            JOptionPane.showMessageDialog(bottomPanel, "No Weightlifting data found.");
-//        }
+        weightLiftingData = FileConnection.readWeightValues();
     }
     private JScrollPane createWeightLiftingTable() {
 
         DefaultTableModel defaultTableModel = new DefaultTableModel(weightLiftingTableHeaders, 0);
-
         fetchWeightLiftingData(defaultTableModel, weightLiftingData);
 
         weightLiftingTable = new JTable(defaultTableModel){
@@ -217,13 +182,12 @@ public class ViewDailyExercises extends JFrame {
     }
     private void fetchWeightLiftingData(DefaultTableModel tableModel, ArrayList<WeightLiftingData> data){
         for (WeightLiftingData d : data) {
-            Date _date = d.getDate();
             String _name = d.getName();
             float _weight = d.getWeight();
             int _sets = d.getSets();
             int _reps = d.getReps();
 
-            Object[] cardioData = {_date, _name, _weight, _sets, _reps};
+            Object[] cardioData = {_name, _weight, _sets, _reps};
 
             tableModel.addRow(cardioData);
         }

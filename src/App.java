@@ -5,9 +5,8 @@ public class App {
     public static void main(String[] args) {
 
     	new dbConnection();
+    	new FileConnection();
         new LoginScreen();
-//        new ViewWeekly();
-//    	dbConnection.createWeightLiftingExercise("name", 12,12,12);
     }
 
 	public static void createSession(User user) {

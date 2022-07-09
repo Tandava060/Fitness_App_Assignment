@@ -85,6 +85,7 @@ public class CardioForm extends JFrame {
                 } else {
 //                	dbConnection.insertValues("INSERT INTO CARDIO VALUES (0, '" + comboBox.getSelectedItem().toString() + "', " + Integer.parseInt(mileTextField.getText()) + ", " + Integer.parseInt(timeTextField.getText()) + ", " + Integer.parseInt(caloriesTextField.getText()) +")");
                 	if(dbConnection.createCardioExercise(comboBox.getSelectedItem().toString(), Integer.parseInt(mileTextField.getText()), Integer.parseInt(timeTextField.getText()) , Integer.parseInt(caloriesTextField.getText()))) {
+                		FileConnection.addCardio(comboBox.getSelectedItem().toString(), Integer.parseInt(timeTextField.getText()), Integer.parseInt(mileTextField.getText()), Integer.parseInt(caloriesTextField.getText()));
             			JOptionPane.showMessageDialog(panel, "Exercise added ✔");
             		} else {
             			JOptionPane.showMessageDialog(panel, "Error, please try again later");

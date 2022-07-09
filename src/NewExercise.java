@@ -1,10 +1,9 @@
 import javax.swing.*;
-import java.awt.*;
 
 public class NewExercise {
 
     NewExercise(){
-        String[] types = new String[]{"Cardio", "Weightlifting", "Type3"};
+        String[] types = new String[]{"Cardio", "Weightlifting"};
         String getType = (String) JOptionPane.showInputDialog
                 (null,
                  "Type of Exercise ?",
@@ -18,8 +17,6 @@ public class NewExercise {
             new CardioForm();
         } else if (types[1].equals(getType)) {
             new WeightLiftingForm();
-        } else if (types[2].equals(getType)) {
-        	JOptionPane.showMessageDialog(null, "Form for :" + types[2]);
         } else {
             // NO
         	JOptionPane.getRootFrame().dispose();

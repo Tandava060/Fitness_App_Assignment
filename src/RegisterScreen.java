@@ -1,8 +1,6 @@
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
@@ -300,38 +298,5 @@ public class RegisterScreen extends JFrame {
         }
     }
 
-    // Adding a listener on textFields to manipulate "Continue" Button
-//    DocumentListener listener = new DocumentListener() {
-//        @Override
-//        public void insertUpdate(DocumentEvent e) {
-//            changedUpdate(e);
-//        }
-//
-//        @Override
-//        public void removeUpdate(DocumentEvent e) {
-//            changedUpdate(e);
-//        }
-//
-//        @Override
-//        public void changedUpdate(DocumentEvent e) {
-//            boolean isEnabled = true;
-//            for (JTextField textField : list){
-//                if (textField.getText().isEmpty()){
-//                    isEnabled = false;
-//                }
-//            }
-//
-//            btnContinue.setEnabled(isEnabled);
-//
-//            if (btnContinue.isEnabled()){
-//                btnContinue.setBackground(Color.GREEN);
-//                btnContinue.setForeground(Color.BLACK);
-//            }
-//            else {
-//                btnContinue.setBackground(Color.RED);
-//                btnContinue.setForeground(Color.WHITE);
-//            }
-//        }
-//    };
 
 }
