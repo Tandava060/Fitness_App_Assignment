@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CardioForm extends JFrame {
-
     ImageIcon image;
     JPanel panel;
     JLabel title, exercise, mile, time, calories;
@@ -50,12 +49,9 @@ public class CardioForm extends JFrame {
         btnCancel.setBackground(Color.red);
         btnCancel.setForeground(Color.white);
 
-        btnCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new MainMenu();
-                CardioForm.this.dispose();
-            }
+        btnCancel.addActionListener(e -> {
+            new MainMenu();
+            CardioForm.this.dispose();
         });
 
         panel = new JPanel();
@@ -73,28 +69,25 @@ public class CardioForm extends JFrame {
         panel.add(btnSave);
         panel.add(btnCancel);
 
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (mileTextField.getText() == null || mileTextField.getText().equals("") || !isNumeric(mileTextField.getText()) ) {
-                    JOptionPane.showMessageDialog(panel, "Distance is required && must be a numeric value ");
-                } else if (timeTextField.getText() == null || timeTextField.getText().equals("") || !isNumeric(timeTextField.getText()) ) {
-                    JOptionPane.showMessageDialog(panel, "time is required && must be a numeric value ");
-                } else if (caloriesTextField.getText() == null || caloriesTextField.getText().equals("") || !isNumeric(caloriesTextField.getText()) ) {
-                    JOptionPane.showMessageDialog(panel, "calories is required && must be a numeric value");
-                } else {
-//                	dbConnection.insertValues("INSERT INTO CARDIO VALUES (0, '" + comboBox.getSelectedItem().toString() + "', " + Integer.parseInt(mileTextField.getText()) + ", " + Integer.parseInt(timeTextField.getText()) + ", " + Integer.parseInt(caloriesTextField.getText()) +")");
-                	if(dbConnection.createCardioExercise(comboBox.getSelectedItem().toString(), Integer.parseInt(mileTextField.getText()), Integer.parseInt(timeTextField.getText()) , Integer.parseInt(caloriesTextField.getText()))) {
-                		FileConnection.addCardio(comboBox.getSelectedItem().toString(), Integer.parseInt(timeTextField.getText()), Integer.parseInt(mileTextField.getText()), Integer.parseInt(caloriesTextField.getText()));
-            			JOptionPane.showMessageDialog(panel, "Exercise added ✔");
-            		} else {
-            			JOptionPane.showMessageDialog(panel, "Error, please try again later");
-            		}
-                	new MainMenu();
-                    CardioForm.this.dispose();
-                }
+        btnSave.addActionListener(e -> {
+            if (mileTextField.getText() == null || mileTextField.getText().equals("") || !isNumeric(mileTextField.getText()) ) {
+                JOptionPane.showMessageDialog(panel, "Distance is required && must be a numeric value ");
+            } else if (timeTextField.getText() == null || timeTextField.getText().equals("") || !isNumeric(timeTextField.getText()) ) {
+                JOptionPane.showMessageDialog(panel, "time is required && must be a numeric value ");
+            } else if (caloriesTextField.getText() == null || caloriesTextField.getText().equals("") || !isNumeric(caloriesTextField.getText()) ) {
+                JOptionPane.showMessageDialog(panel, "calories is required && must be a numeric value");
+            } else {
 
+                if(dbConnection.createCardioExercise(comboBox.getSelectedItem().toString(), Integer.parseInt(mileTextField.getText()), Integer.parseInt(timeTextField.getText()) , Integer.parseInt(caloriesTextField.getText()))) {
+                    FileConnection.addCardio(comboBox.getSelectedItem().toString(), Integer.parseInt(timeTextField.getText()), Integer.parseInt(mileTextField.getText()), Integer.parseInt(caloriesTextField.getText()));
+                    JOptionPane.showMessageDialog(panel, "Exercise added ✔");
+                } else {
+                    JOptionPane.showMessageDialog(panel, "Error, please try again later");
+                }
+                new MainMenu();
+                CardioForm.this.dispose();
             }
+
         });
 
         this.setTitle("Cardio Workouts");

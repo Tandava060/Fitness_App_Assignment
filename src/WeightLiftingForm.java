@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class WeightLiftingForm extends JFrame implements ChangeListener  {
-    JFrame frame;
     ImageIcon image;
     JPanel panel;
     JLabel title,exercise,set,weight,reps;
@@ -104,12 +103,12 @@ public class WeightLiftingForm extends JFrame implements ChangeListener  {
         });
 
 
-        frame = new JFrame("Weightlifting");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,330);
-        frame.setIconImage(image.getImage());
-        frame.add(panel);
-        frame.setVisible(true);
+        this.setTitle("Weightlifting");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(400,330);
+        this.setIconImage(image.getImage());
+        this.add(panel);
+        this.setVisible(true);
         
         slider.addChangeListener(new ChangeListener(){
             public void stateChanged(ChangeEvent e) {

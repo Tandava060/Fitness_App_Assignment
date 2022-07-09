@@ -48,7 +48,7 @@ public class LoginScreen extends JFrame {
         passwordLabel.setPreferredSize(new Dimension(80, 30));
         passwordLabel.setBounds(60, 160, passwordLabel.getPreferredSize().width, passwordLabel.getPreferredSize().height);
 
-        password = new JTextField();
+        password = new JPasswordField();
         password.setEditable(true);
         password.setFont(new Font("Optima", Font.PLAIN, 13));
         password.setPreferredSize(new Dimension(190, 30));

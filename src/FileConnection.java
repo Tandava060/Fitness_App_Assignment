@@ -1,8 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,19 +13,27 @@ public class FileConnection {
 		
 		 String line;
 		 try {
-		        BufferedReader bufferreader = new BufferedReader(new FileReader("daily.txt"));
-		        line = bufferreader.readLine();
-		        if(line == null || !line.contains(myFormatObj.format(now))) {
-		        	new FileWriter("daily.txt", false).close();
-		        	FileWriter f = new FileWriter("daily.txt", true);
-			    	Formatter outfile = new Formatter(f);
-			    	outfile.format("%s", myFormatObj.format(now));
-			    	outfile.close();
-		        }
-		        bufferreader.close();
+
+			 File file = new File("daily.txt");
+
+			 if (file.exists()) {
+				 BufferedReader bufferReader = new BufferedReader(new FileReader("daily.txt"));
+				 line = bufferReader.readLine();
+
+				 if(line == null || !line.contains(myFormatObj.format(now))) {
+					 new FileWriter("daily.txt", false).close();
+					 FileWriter f = new FileWriter("daily.txt", true);
+					 Formatter outfile = new Formatter(f);
+					 outfile.format("%s", myFormatObj.format(now));
+					 outfile.close();
+				 }
+				 bufferReader.close();
+			 }
+			 else {
+				 FileWriter fileWriter = new FileWriter("daily.txt");
+				 fileWriter.close();
+			 }
 		        
-		    } catch (FileNotFoundException ex) {
-		        ex.printStackTrace();
 		    } catch (IOException ex) {
 		        ex.printStackTrace();
 		    }
@@ -87,8 +91,8 @@ public class FileConnection {
 		String line;
 		ArrayList<WeightLiftingData> arr = new ArrayList<WeightLiftingData>();
 	    try {
-	        BufferedReader bufferreader = new BufferedReader(new FileReader("daily.txt"));
-	        while ((line = bufferreader.readLine()) != null) {
+	        BufferedReader bufferReader = new BufferedReader(new FileReader("daily.txt"));
+	        while ((line = bufferReader.readLine()) != null) {
 	        	if(line.contains("user")) {
 	        		
 	        		String name = line.substring(line.indexOf("name") + "name".length() +1, line.indexOf("&&"));
@@ -115,19 +119,16 @@ public class FileConnection {
 			        	    arr.add(new WeightLiftingData(name, Float.parseFloat(weight), Integer.parseInt(set), Integer.parseInt(reps)));
 		        	    }
 		        	    
-		        	    if(type == "cardio") {
+		        	    if(type.equals("cardio")) {
 		        	    	
 		        	    	
 		        	    }
 	        	    }
 	        	}
 	        }
-	        bufferreader.close();
+	        bufferReader.close();
 	        return arr;
 
-	    } catch (FileNotFoundException ex) {
-	        ex.printStackTrace();
-	        return null;
 	    } catch (IOException ex) {
 	        ex.printStackTrace();
 	        return null;
@@ -138,8 +139,8 @@ public class FileConnection {
 		String line;
 		ArrayList<CardioData> arr = new ArrayList<CardioData>();
 	    try {
-	        BufferedReader bufferreader = new BufferedReader(new FileReader("daily.txt"));
-	        while ((line = bufferreader.readLine()) != null) {
+	        BufferedReader bufferReader = new BufferedReader(new FileReader("daily.txt"));
+	        while ((line = bufferReader.readLine()) != null) {
 	        	if(line.contains("user")) {
 	        		
 	        		String name = line.substring(line.indexOf("name") + "name".length() +1, line.indexOf("&&"));
@@ -168,12 +169,9 @@ public class FileConnection {
 	        	    }
 	        	}
 	        }
-	        bufferreader.close();
+	        bufferReader.close();
 	        return arr;
 
-	    } catch (FileNotFoundException ex) {
-	        ex.printStackTrace();
-	        return null;
 	    } catch (IOException ex) {
 	        ex.printStackTrace();
 	        return null;

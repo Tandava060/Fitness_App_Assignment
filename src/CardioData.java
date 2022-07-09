@@ -14,8 +14,6 @@ public class CardioData {
     }
 
     // Constructor without date:
-
-
     public CardioData(String name, String distance, String time, String calories) {
         this.name = name;
         this.distance = distance;

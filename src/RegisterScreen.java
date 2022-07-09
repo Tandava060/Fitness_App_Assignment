@@ -253,20 +253,22 @@ public class RegisterScreen extends JFrame {
                 } else if (height.getText().length() > 3) {
                     JOptionPane.showMessageDialog(panel, "Height cannot be greater than 3 digits no");
                 } else {
-                	String radioval;
+                	String radiOval;
                 	if (radioButtonMale.isSelected()) {
-                		radioval = radioButtonMale.getText();
+                		radiOval = radioButtonMale.getText();
                 	} else {
-                		radioval = radioButtonFemale.getText();
+                		radiOval = radioButtonFemale.getText();
                 	}
-                	
-                	if (dbConnection.register(fullName.getText(), password.getText(), Integer.parseInt(height.getText()), Integer.parseInt(ageSelector.getSelectedItem().toString()),radioval , weightSlider.getValue(), panel)) {
-                		new MainMenu();
-                        RegisterScreen.this.dispose();
-                	}
-                    
-                }
 
+                    if (dbConnection.register(fullName.getText(), password.getText(), Integer.parseInt(height.getText()), Integer.parseInt(ageSelector.getSelectedItem().toString()),radiOval , weightSlider.getValue(), panel)) {
+                        User user = dbConnection.login(fullName.getText(), password.getText(), panel);
+                        if (user != null) {
+                            App.createSession(user);
+                            new MainMenu();
+                            RegisterScreen.this.dispose();
+                        }
+                    }
+                }
 
             }
         });

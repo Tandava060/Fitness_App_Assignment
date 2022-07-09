@@ -9,10 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ViewUser extends JFrame {
-	JFrame frame;
 	JPanel panel;
-	 
-	 
+
 	 ViewUser(){
 	        JLabel title = new JLabel("My User Details");
 	        title.setFont(new Font("Optima", Font.BOLD, 18));
@@ -39,17 +37,21 @@ public class ViewUser extends JFrame {
 	        panel.add(iconLabel);
 	        
 	        JLabel name = new JLabel("Name: " + App.currentUser.getName());
-	        name.setBounds(20, 90, 100, 25);
+	        name.setBounds(20, 90, 200, 25);
 	        name.setFont(new Font("", Font.PLAIN, 16));
+
 	        JLabel age = new JLabel("Age: " + App.currentUser.getAge());
 	        age.setBounds(20, 110, 100, 25);
 	        age.setFont(new Font("", Font.PLAIN, 16));
-	        JLabel weight = new JLabel("Weight: " + App.currentUser.getWeight());
+
+	        JLabel weight = new JLabel("Weight: " + App.currentUser.getWeight() + " kg");
 	        weight.setBounds(20, 130, 100, 25);
 	        weight.setFont(new Font("", Font.PLAIN, 16));
-	        JLabel height = new JLabel("Height: " + App.currentUser.getHeight());
-	        height.setBounds(150, 110, 100, 25);
+
+	        JLabel height = new JLabel("Height: " + App.currentUser.getHeight() + " cm");
+	        height.setBounds(150, 110, 120, 25);
 	        height.setFont(new Font("", Font.PLAIN, 16));
+
 	        JLabel bmi = new JLabel("BMI: " + calculateBMI(App.currentUser.getWeight(), App.currentUser.getHeight()));
 	        bmi.setBounds(150, 130, 100, 25);
 	        bmi.setFont(new Font("", Font.BOLD, 16));
@@ -57,12 +59,12 @@ public class ViewUser extends JFrame {
 	        JButton backBtn = new JButton("Back");
 	        backBtn.setFont(new Font("", Font.PLAIN, 15));
 	        backBtn.setPreferredSize(new Dimension(150, 40));
-	        backBtn.setFocusable(true);
+	        backBtn.setFocusable(false);
 	        backBtn.setBounds(65, 180, backBtn.getPreferredSize().width, backBtn.getPreferredSize().height);
 
 	        backBtn.addActionListener(e -> {
-	        	this.dispose();
-	            new MainMenu();
+				new MainMenu();
+				ViewUser.this.dispose();
 	        });
 	        
 	        panel.add(name);
@@ -72,15 +74,15 @@ public class ViewUser extends JFrame {
 	        panel.add(bmi);
 	        panel.add(backBtn);
 	        
-	        frame = new JFrame("View User");
-	        frame.setSize(300, 300);
-	        frame.setResizable(false);
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        this.setTitle("View User");
+	        this.setSize(300, 300);
+	        this.setResizable(false);
+	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	        frame.add(panel);
+	        this.add(panel);
 	     
 
-	        frame.setVisible(true);
+	        this.setVisible(true);
 	 }
 	 
 	 private static int calculateBMI(int w, int h) {
